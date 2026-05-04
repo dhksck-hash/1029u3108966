@@ -265,6 +265,11 @@ function renderAll() {
 }
 
 async function load() {
+  if (!supabaseSettings().url || !supabaseSettings().key) {
+    setStatus("Supabase 연결값을 저장하면 데이터가 표시됩니다.");
+    renderAll();
+    return;
+  }
   const [from, to] = monthRange(state.date);
   const [foods, entries] = await Promise.all([
     api("/api/foods"),
