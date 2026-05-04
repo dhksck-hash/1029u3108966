@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calorie Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div>
+          <p class="eyebrow">Daily Nutrition</p>
+          <h1>Calorie Tracker</h1>
+        </div>
+        <label class="field">
+          <span>기록 날짜</span>
+          <input id="activeDate" type="date">
+        </label>
+        <label class="field">
+          <span>쓰기 토큰</span>
+          <input id="tokenInput" type="password" placeholder="배포 토큰">
+        </label>
+        <details class="connection">
+          <summary>Supabase 연결</summary>
+          <label class="field">
+            <span>Project URL</span>
+            <input id="supabaseUrl" placeholder="https://xxxxx.supabase.co">
+          </label>
+          <label class="field">
+            <span>Publishable key</span>
+            <input id="supabaseKey" type="password" placeholder="sb_publishable_...">
+          </label>
+        </details>
+        <button id="saveSettings" class="secondary" type="button">설정 저장</button>
+        <nav class="tabs" aria-label="Views">
+          <button class="tab active" data-view="dashboard" type="button">요약</button>
+          <button class="tab" data-view="calendar" type="button">캘린더</button>
+          <button class="tab" data-view="foods" type="button">음식 DB</button>
+        </nav>
+      </aside>
+
+      <main>
+        <section class="topbar">
+          <div>
+            <p class="eyebrow">선택일</p>
+            <h2 id="dateTitle">-</h2>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><span>총량</span><strong id="totalKcal">0</strong></div>
+            <div class="kpi"><span>목표 대비</span><strong id="goalDelta">0</strong></div>
+            <div class="kpi"><span>기록 수</span><strong id="entryCount">0</strong></div>
+          </div>
+        </section>
+
+        <section class="entry-panel">
+          <form id="entryForm" class="entry-form">
+            <label class="field compact">
+              <span>식사</span>
+              <select id="meal">
+                <option>아침</option>
+                <option>점심</option>
+                <option>간식</option>
+                <option>저녁</option>
+              </select>
+            </label>
+            <label class="field grow">
+              <span>음식</span>
+              <input id="foodName" list="foodList" placeholder="예: 두유">
+              <datalist id="foodList"></datalist>
+            </label>
+            <label class="field compact">
+              <span>분량</span>
+              <input id="amount" type="number" min="0" step="0.1" placeholder="100">
+            </label>
+            <label class="field compact">
+              <span>단위</span>
+              <input id="unit" placeholder="g">
+            </label>
+            <label class="field note">
+              <span>메모</span>
+              <input id="notes" placeholder="조리 전 중량">
+            </label>
+            <button type="submit">추가</button>
+          </form>
+          <div class="search-panel">
+            <button id="searchFood" class="secondary" type="button">DB에 없으면 검색</button>
+            <div id="searchResults" class="search-results"></div>
+          </div>
+          <p id="status" class="status"></p>
+        </section>
+
+        <section id="dashboard" class="view active">
+          <div class="meal-grid" id="mealGrid"></div>
+        </section>
+
+        <section id="calendar" class="view">
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </section>
+
+        <section id="foods" class="view">
+          <form id="foodForm" class="food-form">
+            <input id="newFoodName" placeholder="음식명">
+            <input id="newFoodKcal" type="number" min="0" step="0.1" placeholder="kcal / 100">
+            <input id="newFoodUnit" placeholder="g">
+            <input id="newFoodCategory" placeholder="카테고리">
+            <button type="submit">저장</button>
+          </form>
+          <div class="food-table" id="foodTable"></div>
+        </section>
+      </main>
+    </div>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
