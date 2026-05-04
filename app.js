@@ -38,9 +38,9 @@ function supabaseHeaders(write = false) {
     authorization: `Bearer ${key}`,
     "content-type": "application/json",
   };
+  if (token()) headers["x-calorie-token"] = token();
   if (write) {
     headers.prefer = "return=representation";
-    if (token()) headers["x-calorie-token"] = token();
   }
   return headers;
 }
