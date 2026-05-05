@@ -224,7 +224,7 @@ function renderCalendar() {
     const total = items.reduce((sum, entry) => sum + Number(entry.estimated_kcal || 0), 0);
     return `
       <div class="day-cell">
-        <strong><span>${date.slice(5)}</span><span>${fmt(total)}</span></strong>
+        <strong><span class="day-date">${date.slice(5)}</span><span class="day-total">${fmt(total)} kcal</span></strong>
         <ol>${items.slice(0, 5).map((entry) => `<li>${esc(entry.meal)} ${esc(entry.food_name)} ${fmt(entry.estimated_kcal)}</li>`).join("")}</ol>
       </div>
     `;
